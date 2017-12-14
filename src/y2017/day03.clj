@@ -69,7 +69,7 @@
 (defn part-1
   [val]
   (dist val))
-  
+
  
 (defn test-val
   [val]
@@ -84,8 +84,10 @@
     (doseq [val test-data]
       (test-val val)))
 
-  (println "part 1 solution -> " (part-1 325489))
-  )
+  (let [puzzle-input 325489]
+    (println "part 1 solution -> " (part-1 puzzle-input))
+    #_(println "part 2 solution -> " (part-2 puzzle-input))))
+
 
 ;; 101 100  99  98  97  96  95  94  93  92  91
 ;; 102  65  64  63  62  61  60  59  58  57  90

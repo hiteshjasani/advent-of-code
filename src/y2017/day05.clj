@@ -19,16 +19,14 @@
    for example: [0 3 0 1 -3]"
   [instructions offset-modifier-fn]
   (let [offsets (transient instructions)
-        sz     (count instructions)]
+        sz      (count instructions)]
     (loop [idx   0
            steps 1]
       (let [idx-offset (nth offsets idx)]
-        ;; (println (str "idx: " idx ",  idx-offset: " idx-offset))
         (assoc! offsets idx (offset-modifier-fn idx-offset))
         (if (>= (+ idx idx-offset) sz)
           steps
-          (recur (+ idx idx-offset) (inc steps)))
-      ))))
+          (recur (+ idx idx-offset) (inc steps)))))))
 
 (defn part-1
   [jump-offsets]
@@ -52,6 +50,5 @@
                           s/split-lines
                           (mapv read-string))]
     (println "part 1 solution -> " (part-1 jump-offsets))
-    (println "part 2 solution -> " (part-2 jump-offsets))
-    )
-  )
+    (println "part 2 solution -> " (part-2 jump-offsets))))
+
