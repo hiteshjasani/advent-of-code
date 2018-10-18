@@ -87,7 +87,8 @@ cntj (57)")
     (println "part 2 using test-input -> ")
     (part-2 progs))
 
-  (let [progs (->> "y2017/day07/input" io/resource slurp s/trim s/split-lines
+  (let [progs (->> (u/load-res "day07")
+                   s/split-lines
                    (map parse-line))]
     (println "part 1 solution -> " (part-1 progs))
     (println "part 2 solution -> ")

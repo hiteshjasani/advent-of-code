@@ -2,7 +2,8 @@
   (:require
    [clojure.java.io :as io]
    [clojure.string :as s]
-   [clojure.set :as cs]))
+   [clojure.set :as cs]
+   [y2017.util :as u]))
 
 (defn spread
   [arr idx]
@@ -57,7 +58,7 @@
     (println (str "part 1 using " input " -> " (part-1 input)))
     (println (str "part 2 using " input " -> " (part-2 input))))
 
-  (let [input (-> "y2017/day06/input" io/resource slurp s/trim
+  (let [input (-> (u/load-res "day06")
                   (s/split #"\s+")
                   (->> (mapv read-string)))]
     (println "part 1 solution -> " (part-1 input))

@@ -84,7 +84,8 @@ c inc -20 if c == 10")
     (println (str "part 1 using test-input -> " (part-1 input)))
     (println (str "part 2 using test-input -> " (part-2 input))))
 
-  (let [input (->> "y2017/day08/input" io/resource slurp s/trim s/split-lines
+  (let [input (->> (u/load-res "day08")
+                   s/split-lines
                    (map parse-line))]
     (println "part 1 solution -> " (part-1 input))
     (println "part 2 solution -> " (part-2 input))))

@@ -1,7 +1,8 @@
 (ns y2017.day05
   (:require
    [clojure.java.io :as io]
-   [clojure.string :as s]))
+   [clojure.string :as s]
+   [y2017.util :as u]))
 
 
 (defn simple-offset-modifier
@@ -43,12 +44,8 @@
                      (part-2 test-data)
                      (str test-data))))
 
-  (let [jump-offsets (->> "y2017/day05/input"
-                          io/resource
-                          slurp
-                          s/trim
+  (let [jump-offsets (->> (u/load-res "day05")
                           s/split-lines
                           (mapv read-string))]
     (println "part 1 solution -> " (part-1 jump-offsets))
     (println "part 2 solution -> " (part-2 jump-offsets))))
-

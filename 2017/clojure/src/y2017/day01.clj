@@ -1,7 +1,8 @@
 (ns y2017.day01
   (:require
    [clojure.java.io :as io]
-   [clojure.string :as s]))
+   [clojure.string :as s]
+   [y2017.util :as u]))
 
 (defn peer-index
   "idx-size : int
@@ -30,7 +31,7 @@
 (defn part-1
   [digits]
   (count-peer-dups digits 1))
-  
+
 (defn part-2
   [digits]
   (count-peer-dups digits (/ (count digits) 2)))
@@ -43,7 +44,8 @@
         (println (str s " -> p1: " (part-1 digits)
                       "  p2: " (part-2 digits))))))
 
-  (let [digits (-> "y2017/day01/input" io/resource slurp s/trim str->ints)]
+  (let [digits (-> (u/load-res "day01")
+                   str->ints)]
     (println "part 1 solution -> " (part-1 digits))
     (println "part 2 solution -> " (part-2 digits))
     ))

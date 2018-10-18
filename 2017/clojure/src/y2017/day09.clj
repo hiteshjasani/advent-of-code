@@ -59,5 +59,5 @@
           char-stream))
 
 (defn -main []
-  (let [input (u/load-res "y2017/day09/input")]
+  (let [input (u/load-res "day09")]
     (println "part 1/2 solution -> " (process input))))

@@ -11,10 +11,18 @@
   [coll]
   (every? #(= (first coll) %) coll))
 
-(defn load-res
+#_(defn load-res
   "Load file from classpath"
   [filepath]
   (->> filepath
        io/resource
        slurp
        s/trim))
+
+(defn load-res
+  "Load file from classpath"
+  [day]
+  (-> (str day "/input")
+      io/resource
+      slurp
+      s/trim))

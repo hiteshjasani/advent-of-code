@@ -1,7 +1,8 @@
 (ns y2017.day04
   (:require
    [clojure.java.io :as io]
-   [clojure.string :as s]))
+   [clojure.string :as s]
+   [y2017.util :as u]))
 
 (defn valid?
   [passphrase]
@@ -49,7 +50,7 @@
                            data))
           ))
 
-  (let [passphrases (-> "y2017/day04/input" io/resource slurp s/trim
+  (let [passphrases (-> (u/load-res "day04")
                         s/split-lines)]
     (println "part 1 solution -> " (part-1 passphrases))
     (println "part 2 solution -> " (part-2 passphrases))
