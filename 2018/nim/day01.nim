@@ -1,13 +1,6 @@
+from sequtils import foldl, map
 from strutils import parseInt, strip, splitLines
 from tables import newTable, contains, `[]=`
-
-proc strsToInts(lines: openarray[string]): seq[int] =
-  result = newSeq[int](lines.len)
-  for i, value in lines:
-    try:
-      result[i] = parseInt(value)
-    except ValueError:
-      echo "Could not parse " & value
 
 proc part2(startFreq: int, changes: openarray[int]): int =
   result = startFreq
@@ -25,14 +18,10 @@ proc part2(startFreq: int, changes: openarray[int]): int =
 
 when isMainModule:
   const filepath = "../resources/day01/input.txt"
-  let changes = readFile(filepath).strip().splitLines().strsToInts()
+  let changes = readFile(filepath).strip().splitLines().map(parseInt)
 
   # Part 1
-  block:
-    var freq = 0
-    for x in changes:
-      freq += x
-    echo "Part1: freq = " & $freq # 538
+  echo "Part1: freq = " & $(foldl(changes, a + b, 0)) # 538
 
   # Part 2
   echo "Part2: dupe freq = " & $part2(0, changes) # 77271
