@@ -1,57 +1,38 @@
-from strutils as su import nil
-from tables as tbl import newTable, `[]`, `[]=`
+from strutils import parseInt, strip, splitLines
+from tables import newTable, contains, `[]=`
 
-proc loadFile(filename: string): seq[string] =
-  # Unless we strip the read file, we end up with an extra 0
-  let raw = su.strip(readFile(filename))
-  result = su.splitLines(raw)
-
-proc strsToInts(lines: seq[string]): seq[int] =
+proc strsToInts(lines: openarray[string]): seq[int] =
   result = newSeq[int](lines.len)
   for i, value in lines:
     try:
-      result[i] = su.parseInt(value)
+      result[i] = parseInt(value)
     except ValueError:
       echo "Could not parse " & value
-    except IndexError:
-      echo "indexerror with i of " & $i
 
-proc interpreter(startFreq: int, lines: openarray[int]): int =
+proc part2(startFreq: int, changes: openarray[int]): int =
   result = startFreq
-  for x in lines:
-    result += x
-
-proc interpreter2(startFreq: int, lines: openarray[int]): int =
   var seenFreqs = newTable[int, bool](1024)
-
-  result = startFreq
   seenFreqs[result] = true
 
-  var ctr = 0
-  for t in 0..1_000_000:
-    for x in lines:
-      ctr += 1
+  for iter in 0..1_000_000:
+    for x in changes:
       result += x
-      if tbl.contains(seenFreqs, result):
-        echo "Saw freq " & $result & " before on iter " & $ctr
+      if contains(seenFreqs, result):
         return result
       else:
         seenFreqs[result] = true
-  echo "Counter = " & $ctr
+  result = -1
 
 when isMainModule:
-  let lines = strsToInts(loadFile("../resources/day01/input.txt"))
-  echo "Read " & $lines.len() & " lines from file"
-  when false:
-    echo "lines.last =  " & $lines[lines.len()-1]
-    for i in 1..10:
-      let t = lines.len() - i
-      echo "lines[" & $t & "] = " & $lines[t]
+  const filepath = "../resources/day01/input.txt"
+  let changes = readFile(filepath).strip().splitLines().strsToInts()
 
   # Part 1
-  let freq = interpreter(0, lines)
-  echo "Part 1:  End frequency is " & $freq # answer is 538
+  block:
+    var freq = 0
+    for x in changes:
+      freq += x
+    echo "Part1: freq = " & $freq # 538
 
   # Part 2
-  let dupFreq = interpreter2(0, lines)
-  echo "Part 2:  First dupe frequency is " & $dupFreq # answer is 77271 on change 145417
+  echo "Part2: dupe freq = " & $part2(0, changes) # 77271
