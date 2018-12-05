@@ -1,8 +1,6 @@
-from options import Option, get, isSome, none, some, `$`
 import re
 from sequtils import delete, filter, foldl, map, mapIt
 from strutils import parseUInt, strip, splitLines
-from tables import Table, initTable, contains, values, `[]=`, `[]`, `$`
 
 const
   filepath = "../resources/day03/input.txt"
@@ -45,7 +43,7 @@ when isMainModule:
 
   echo "Read " & $lines.len & " lines"
 
-  # Part 1
+  ## Part 1
   for p in patches:
     for i in p.x..<(p.x + p.w):
       for j in p.y..<(p.y + p.h):
@@ -61,3 +59,15 @@ when isMainModule:
         area += 1
 
   echo "Overused area = " & $area  # 103482
+
+  ## Part 2
+  for p in patches:
+    var usedOnce = true
+    for i in p.x..<(p.x + p.w):
+      for j in p.y..<(p.y + p.h):
+        case fabric[j][i]:
+          of fOpen: usedOnce = false
+          of fUsedOnce: discard
+          of fUsedMultiple: usedOnce = false
+    if usedOnce:
+      echo "Used once: " & $p
